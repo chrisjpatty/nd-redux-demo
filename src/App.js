@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {store} from './stores/todoStore.js';
+import 'animate.css';
 
 class App extends Component {
   constructor(props){
@@ -23,6 +24,43 @@ class App extends Component {
   }
 }
 
+class TodoInput extends Component{
+  constructor(props){
+    super();
+    this.state = {value: ""};
+  }
+  onKeyPress = (e) => {
+    if(e.charCode == 13){
+      this.addTodo();
+    }
+  }
+  addTodo = () => {
+    if(this.state.value != ""){
+      store.dispatch({
+        type: 'ADD_TODO',
+        text: this.state.value
+      })
+      this.setState({
+        value: ""
+      })
+      document.getElementById('todoInput').focus();
+    }
+  }
+  setValue = (e) => {
+    this.setState({
+      value: e.target.value
+    })
+  }
+  render(){
+    return(
+      <div>
+        <input type="text" id="todoInput" onChange={this.setValue} onKeyPress={this.onKeyPress} value={this.state.value} placeholder="Todo..."/>
+        <button onClick={this.addTodo} >Add Todo</button>
+      </div>
+    )
+  }
+};
+
 class Todo extends Component{
   constructor(props){
     super();
@@ -35,37 +73,12 @@ class Todo extends Component{
   }
   render() {
     return(
-      <li style={{textDecoration: (this.props.completed ? "line-through" : "none")}} onClick={this.toggleTodo}>
+      <li className="animated bounceIn" style={{textDecoration: (this.props.completed ? "line-through" : "none")}} onClick={this.toggleTodo}>
       {this.props.todoText}
       </li>
     )
   }
 }
 
-class TodoInput extends Component{
-  constructor(props){
-    super();
-    this.state = {value: ""};
-  }
-  addTodo = () => {
-    store.dispatch({
-      type: 'ADD_TODO',
-      text: this.state.value
-    })
-  }
-  setValue = (e) => {
-    this.setState({
-      value: e.target.value
-    })
-  }
-  render(){
-    return(
-      <div>
-        <input type="text" onChange={this.setValue} value={this.state.value}/>
-        <button onClick={this.addTodo}>Add Todo</button>
-      </div>
-    )
-  }
-};
 
 export default App;
