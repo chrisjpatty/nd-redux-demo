@@ -8,7 +8,7 @@ const todo = (state = {todos: [], test: true}, action) => {
         todos: [
           ...state.todos,
           {
-            id: (state.todos.length + 1),
+            id: (state.todos.length),
             text: action.text,
             completed: false
           }
@@ -26,6 +26,18 @@ const todo = (state = {todos: [], test: true}, action) => {
           return {
             ...todo,
             completed: !todo.completed
+          }
+        })
+      ,
+      test: state.test
+    };
+    case 'DELETE_TODO':
+    console.log("Deleted the Todo");
+    return {
+      todos:
+        state.todos.filter(function(todo){
+          if(todo.id !== action.id){
+            return todo;
           }
         })
       ,

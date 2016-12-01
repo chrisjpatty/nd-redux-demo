@@ -52,10 +52,38 @@ li{
   user-select: none;
   border-radius: 10px;
   float: left;
-  clear: both;
+  clear: right;
   padding: 3px 10px;
   transition: background .2s;
 }
 li:hover{
   background: #e6ffe6;
+}
+.todo{
+  position: relative;
+  float: left;
+  clear: both;
+}
+.delete-button{
+  opacity: 0;
+  pointer-events: none;
+  width: 24px;
+  height: 24px;
+  background: none;
+  font-weight: normal;
+  padding-left: 3px;
+  box-sizing: border-box;
+  color: #000;
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  padding-top: 1px;
+  font-size: 25px;
+  line-height: 19px;
+  transition: opacity .2s;
+  cursor: pointer;
+}
+.todo:hover .delete-button{
+  opacity: 1;
+  pointer-events: all;
 }

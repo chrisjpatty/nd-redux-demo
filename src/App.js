@@ -71,11 +71,20 @@ class Todo extends Component{
       id: this.props.id
     })
   }
+  deleteTodo = () => {
+    store.dispatch({
+      type: "DELETE_TODO",
+      id: this.props.id
+    })
+  }
   render() {
     return(
-      <li className="animated bounceIn" style={{textDecoration: (this.props.completed ? "line-through" : "none")}} onClick={this.toggleTodo}>
-      {this.props.todoText}
-      </li>
+      <div className="todo">
+        <li className="animated bounceIn" style={{textDecoration: (this.props.completed ? "line-through" : "none")}} onClick={this.toggleTodo}>
+        {this.props.todoText}
+        </li>
+        <span className="delete-button" onClick={this.deleteTodo} >×</span>
+      </div>
     )
   }
 }
